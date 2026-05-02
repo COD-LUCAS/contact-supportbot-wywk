@@ -1,6 +1,6 @@
 <p align="center">
   <strong style="font-size:20px;">MIT License</strong><br>
-  &copy; 2025 Atex Ovi
+  &copy; 2025 COD-LUCAS
 </p>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
