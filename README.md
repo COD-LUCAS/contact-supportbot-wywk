@@ -32,11 +32,5 @@ USES=LIST MENU FUNCTION
 src/assets/wywk-banner.jpg
 ```
 
-## Contact
-
-📍 Malappuram, Chemmad  
-📧 support@wywk.in  
-📞 +91 8281885620
-
 ## Powered By
 WhatYouWantKerala
