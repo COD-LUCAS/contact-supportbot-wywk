@@ -6,59 +6,104 @@ import { fileURLToPath } from 'url'
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
-const PRODUCTS = {
-  tempe_original: {
-    id: 'tempe_original',
-    title: 'Tempe Crispy Original',
-    price: 'Rp10.000',
-    desc: 'Crispy and savory — a timeless classic loved by everyone.',
-    image: path.join(__dirname, '../assets/tempe-original.jpg'),
+const SERVICES = {
+  service_web_dev: {
+    id: 'service_web_dev',
+    title: 'Web Development',
+    price: 'Contact for Quote',
+    desc: 'High-performance, SEO-friendly websites tailored for your business needs. From landing pages to corporate portals.',
+    image: path.join(__dirname, '../assets/web-dev.jpg'),
   },
-  tempe_balado: {
-    id: 'tempe_balado',
-    title: 'Tempe Crispy Balado',
-    price: 'Rp12.000',
-    desc: 'Sweet and spicy Balado flavor that will keep you coming back for more.',
-    image: path.join(__dirname, '../assets/tempe-balado.jpg'),
+  service_custom_soft: {
+    id: 'service_custom_soft',
+    title: 'Custom Software Development',
+    price: 'Custom Pricing',
+    desc: 'Bespoke software solutions designed to solve your specific operational challenges and improve efficiency.',
+    image: path.join(__dirname, '../assets/software-dev.jpg'),
   },
-  tempe_pedas: {
-    id: 'tempe_pedas',
-    title: 'Tempe Crispy Pedas',
-    price: 'Rp12.000',
-    desc: 'For true spice lovers — a perfect mix of heat and crunch.',
-    image: path.join(__dirname, '../assets/tempe-pedas.jpg'),
+  service_erp: {
+    id: 'service_erp',
+    title: 'Custom ERP Development',
+    price: 'Project Based',
+    desc: 'Comprehensive Enterprise Resource Planning systems to manage your finance, inventory, and human resources in one place.',
+    image: path.join(__dirname, '../assets/erp.jpg'),
+  },
+  service_einvoice: {
+    id: 'service_einvoice',
+    title: 'E-Invoicing System Integration',
+    price: 'Module Based',
+    desc: 'Seamlessly integrate E-Invoicing capabilities into your existing software or web apps, compliant with global standards.',
+    image: path.join(__dirname, '../assets/einvoice.jpg'),
+  },
+  service_web_apps: {
+    id: 'service_web_apps',
+    title: 'Custom Web Applications',
+    price: 'Contact for Quote',
+    desc: 'Scalable and interactive web applications (SaaS) built with modern stacks like React, Node.js, and PHP.',
+    image: path.join(__dirname, '../assets/web-apps.jpg'),
+  },
+  service_ecommerce: {
+    id: 'service_ecommerce',
+    title: 'E-Commerce Solutions',
+    price: 'Starting from ₹XX,XXX',
+    desc: 'Feature-rich online stores with secure payment gateways, inventory management, and user-friendly admin panels.',
+    image: path.join(__dirname, '../assets/ecommerce.jpg'),
+  },
+  service_wa_auto: {
+    id: 'service_wa_auto',
+    title: 'WhatsApp Automation',
+    price: 'API Based',
+    desc: 'Automate your customer communication, notifications, and support using high-speed WhatsApp API gateways.',
+    image: path.join(__dirname, '../assets/wa-auto.jpg'),
+  },
+  service_lms: {
+    id: 'service_lms',
+    title: 'Learning Management System',
+    price: 'Contact for Quote',
+    desc: 'Complete digital learning platforms for schools, colleges, and private tutors with student/teacher dashboards.',
+    image: path.join(__dirname, '../assets/lms.jpg'),
+  },
+  service_food_sys: {
+    id: 'service_food_sys',
+    title: 'Restaurant Ordering System',
+    price: 'Per Branch',
+    desc: 'Contactless digital menus and automated ordering systems for cafes and restaurants to streamline service.',
+    image: path.join(__dirname, '../assets/restaurant.jpg'),
   },
 }
 
 export function getProduct(productId) {
-  return PRODUCTS[productId] || null
+  return SERVICES[productId] || null
 }
 
 export async function showProductDetail(sock, from, productId) {
-  const product = getProduct(productId)
-  if (!product) {
-    await sock.sendMessage(from, { text: 'Product not found.' })
+  const service = getProduct(productId)
+  if (!service) {
+    await sock.sendMessage(from, { text: 'Service details not found.' })
     return
   }
 
-  const buffer = fs.existsSync(product.image) ? fs.readFileSync(product.image) : null
-  const caption = `*${product.title}*\nPrice: ${product.price}\n\n${product.desc}\n\nPress the "Buy Now" button to continue.`
+  const buffer = fs.existsSync(service.image) ? fs.readFileSync(service.image) : null
+  const caption = `*${service.title}*\nStatus: ${service.price}\n\n${service.desc}\n\nClick the button below to discuss your project requirements.`
 
-  const buyButton = [{ buttonId: 'buy_now', buttonText: { displayText: 'Buy Now' }, type: 1 }]
+  // Rebranded button for professional services
+  const actionButton = [{ buttonId: 'inquire_now', buttonText: { displayText: 'Inquire Now' }, type: 1 }]
+
+  const footerText = '©️ 2026 WhatYouWantKerala — wywk.in'
 
   if (buffer) {
     await sock.sendMessage(from, {
       image: buffer,
       caption,
-      footer: '© Tempe Crispy Store — Atex Ovi',
-      buttons: buyButton,
+      footer: footerText,
+      buttons: actionButton,
       headerType: 4,
     })
   } else {
     await sock.sendMessage(from, {
       text: caption,
-      footer: '© Tempe Crispy Store — Atex Ovi',
-      buttons: buyButton,
+      footer: footerText,
+      buttons: actionButton,
     })
   }
 }
